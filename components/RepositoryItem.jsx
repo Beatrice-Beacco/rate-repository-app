@@ -22,13 +22,11 @@ const RepositoryItem = ({ item, separator }) => {
       fontFamily: theme.fonts.main,
       fontWeight: theme.fontWeights.bold,
       fontSize: theme.fontSizes.subheading,
-      flex: 1,
     },
     descriptionText: {
       color: theme.colors.textSecondary,
       fontFamily: theme.fonts.main,
       fontSize: theme.fontSizes.body,
-      flex: 1,
     },
     languageText: {
       alignSelf: "flex-start",
@@ -51,7 +49,11 @@ const RepositoryItem = ({ item, separator }) => {
 
     column: {
       flexDirection: "column",
-      justifyContent: "flex-end",
+    },
+
+    sectionColumn: {
+      flexDirection: "column",
+      flex: 1,
     },
 
     image: {
@@ -71,7 +73,7 @@ const RepositoryItem = ({ item, separator }) => {
     <View style={(separator, styles.entry)}>
       <View style={styles.sectionRow}>
         <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
-        <View style={styles.column}>
+        <View style={styles.sectionColumn}>
           <Text style={styles.nameText}> {fullName}</Text>
           <Text style={styles.descriptionText}>{description}</Text>
           <Text style={styles.languageText}>{language}</Text>
