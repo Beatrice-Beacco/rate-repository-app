@@ -1,4 +1,5 @@
-import { View, Text } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
+import theme from "../theme";
 
 const RepositoryItem = ({ item, separator }) => {
   const {
@@ -8,16 +9,97 @@ const RepositoryItem = ({ item, separator }) => {
     forksCount,
     reviewCount,
     ratingAverage,
+    stargazersCount,
+    ownerAvatarUrl,
   } = item;
 
+  const styles = StyleSheet.create({
+    entry: {
+      backgroundColor: theme.colors.white,
+      padding: 15,
+    },
+    nameText: {
+      fontFamily: theme.fonts.main,
+      fontWeight: theme.fontWeights.bold,
+      fontSize: theme.fontSizes.subheading,
+      flex: 1,
+    },
+    descriptionText: {
+      color: theme.colors.textSecondary,
+      fontFamily: theme.fonts.main,
+      fontSize: theme.fontSizes.body,
+      flex: 1,
+    },
+    languageText: {
+      alignSelf: "flex-start",
+      padding: 5,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 5,
+      color: theme.colors.white,
+    },
+
+    row: {
+      paddingTop: 7,
+      justifyContent: "space-evenly",
+      flexDirection: "row",
+    },
+
+    sectionRow: {
+      paddingTop: 7,
+      flexDirection: "row",
+    },
+
+    column: {
+      flexDirection: "column",
+      justifyContent: "flex-end",
+    },
+
+    image: {
+      width: theme.icon.size,
+      height: theme.icon.size,
+      borderRadius: 5,
+      marginRight: 10,
+    },
+  });
+
+  const turnIntoDecimal = (number) => {
+    if (number > 1000) return (number / 1000).toFixed(1) + "k";
+    return number;
+  };
+
   return (
-    <View style={separator}>
-      <Text>Full name: {fullName}</Text>
-      <Text>Description: {description}</Text>
-      <Text>Language: {language}</Text>
-      <Text>Forks: {forksCount}</Text>
-      <Text>Reviews: {reviewCount}</Text>
-      <Text>Rating: {ratingAverage}</Text>
+    <View style={(separator, styles.entry)}>
+      <View style={styles.sectionRow}>
+        <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
+        <View style={styles.column}>
+          <Text style={styles.nameText}> {fullName}</Text>
+          <Text style={styles.descriptionText}>{description}</Text>
+          <Text style={styles.languageText}>{language}</Text>
+        </View>
+      </View>
+      <View style={styles.row}>
+        <View style={styles.column}>
+          <Text style={styles.nameText}>
+            {turnIntoDecimal(stargazersCount)}
+          </Text>
+          <Text style={styles.descriptionText}>Stars</Text>
+        </View>
+
+        <View style={styles.column}>
+          <Text style={styles.nameText}>{turnIntoDecimal(forksCount)}</Text>
+          <Text style={styles.descriptionText}>Forks</Text>
+        </View>
+
+        <View style={styles.column}>
+          <Text style={styles.nameText}>{reviewCount}</Text>
+          <Text style={styles.descriptionText}>Reviews</Text>
+        </View>
+
+        <View style={styles.column}>
+          <Text style={styles.nameText}>{ratingAverage}</Text>
+          <Text style={styles.descriptionText}>Rating</Text>
+        </View>
+      </View>
     </View>
   );
 };
