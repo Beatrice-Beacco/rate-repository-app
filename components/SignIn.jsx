@@ -9,8 +9,8 @@ const initialValues = {
   password: "",
 };
 
-const onSubmit = ({ values }) => {
-  console.log("bruuuuh", values);
+const onSubmit = (values) => {
+  console.log(values.username, values.password);
 };
 
 const SignIn = () => {
