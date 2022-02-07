@@ -11,9 +11,9 @@ import SignIn from "./SignIn";
 export const Main = () => {
   const styles = StyleSheet.create({
     container: {
+      display: "flex",
       flex: 1,
       backgroundColor: theme.colors.background,
-      justifyContent: "center",
     },
   });
   return (

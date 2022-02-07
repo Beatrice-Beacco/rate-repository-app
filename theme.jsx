@@ -19,6 +19,7 @@ const theme = {
   },
 
   paddings: {
+    verySmallPadding: 5,
     smallPadding: 20,
   },
 
