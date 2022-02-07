@@ -7,9 +7,10 @@ import theme from "../theme";
 
 const styles = StyleSheet.create({
   errorText: {
-    marginTop: 5,
+    color: theme.colors.error,
   },
   fieldText: {
+    color: theme.colors.textPrimary,
     borderWidth: 1,
     borderColor: theme.colors.background,
     borderRadius: theme.paddings.verySmallPadding,
