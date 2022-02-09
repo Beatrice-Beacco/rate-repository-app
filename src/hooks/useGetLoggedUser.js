@@ -1,0 +1,30 @@
+import { useState, useEffect } from "react";
+
+import { useQuery } from "@apollo/client";
+
+import { LOGGED_USER } from "../graphql/queries";
+
+const useGetLoggedUser = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const { data, error, load } = useQuery(LOGGED_USER);
+
+  const fetchUser = async () => {
+    setLoading(load);
+
+    if (data) {
+      setUser(data.me);
+    }
+
+    if (error)
+      throw new Error("An error in the fetching of the logged user", error);
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, [data]);
+
+  return { user, loading, refetch: fetchUser };
+};
+
+export default useGetLoggedUser;
