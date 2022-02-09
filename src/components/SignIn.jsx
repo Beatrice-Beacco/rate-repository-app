@@ -7,7 +7,7 @@ import SignInForm from "./SignInForm";
 
 import useSignIn from "../hooks/useSignIn";
 
-import AuthStorage from "../utils/authStorage";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   username: "",
@@ -19,14 +19,13 @@ const validationSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
-const authStorage = new AuthStorage();
-
 const SignIn = () => {
   const [signIn] = useSignIn();
+  let navigate = useNavigate();
 
   const onSubmit = async (values) => {
     const token = await signIn(values);
-    await authStorage.setAccessToken(token);
+    if (token) navigate("/", { replace: true });
   };
 
   return (
