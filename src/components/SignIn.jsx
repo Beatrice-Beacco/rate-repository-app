@@ -7,6 +7,8 @@ import SignInForm from "./SignInForm";
 
 import useSignIn from "../hooks/useSignIn";
 
+import AuthStorage from "../utils/authStorage";
+
 const initialValues = {
   username: "",
   password: "",
@@ -17,12 +19,14 @@ const validationSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
+const authStorage = new AuthStorage();
+
 const SignIn = () => {
   const [signIn] = useSignIn();
 
   const onSubmit = async (values) => {
     const token = await signIn(values);
-    console.log("Authentication token\n", token);
+    await authStorage.setAccessToken(token);
   };
 
   return (
