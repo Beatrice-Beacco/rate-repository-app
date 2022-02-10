@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { REPOSITORY_FIELDS } from "./fragments";
 
 export const LOGGED_USER = gql`
   query {
@@ -10,33 +11,24 @@ export const LOGGED_USER = gql`
 `;
 
 export const GET_REPOSITORIES = gql`
+  ${REPOSITORY_FIELDS}
   query {
     repositories {
       edges {
         node {
-          id
-          fullName
-          name
-          ratingAverage
-          reviewCount
-          stargazersCount
-          watchersCount
-          forksCount
-          ownerAvatarUrl
-          description
-          language
+          ...DisplayFields
         }
       }
     }
   }
 `;
-//repositoryId($id: String)
+
 export const GET_REPOSITORY = gql`
   query repo($repo: ID!) {
     repository(id: $repo) {
-      id
-      fullName
       url
+      ...DisplayFields
     }
   }
+  ${REPOSITORY_FIELDS}
 `;

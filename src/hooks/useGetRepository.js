@@ -5,21 +5,19 @@ import { useQuery } from "@apollo/client";
 import { GET_REPOSITORY } from "../graphql/queries";
 
 const useGetUrl = (id) => {
-  const [url, setUrl] = useState();
+  const [repo, setRepo] = useState();
   const [load, setLoading] = useState(false);
-  const query = useQuery(GET_REPOSITORY, {
+  const { data, error, loading } = useQuery(GET_REPOSITORY, {
     variables: {
       repo: id,
     },
   });
 
-  const { data, error, loading } = query;
-
   const fetchRepo = async () => {
     setLoading(loading);
 
     if (data) {
-      setUrl(data.repository.url);
+      setRepo(data.repository);
     }
 
     if (error) console.log("Error: ", error);
@@ -29,7 +27,7 @@ const useGetUrl = (id) => {
     fetchRepo();
   }, [data]);
 
-  return { url, load, refetch: fetchRepo };
+  return { repo, load, refetch: fetchRepo };
 };
 
 export default useGetUrl;

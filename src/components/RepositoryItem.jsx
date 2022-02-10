@@ -1,7 +1,6 @@
 import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 import * as Linking from "expo-linking";
 import theme from "../theme";
-import useGetUrl from "../hooks/useGetUrl";
 
 const styles = StyleSheet.create({
   entry: {
@@ -70,9 +69,8 @@ const openGitHubLink = (url, event) => {
   Linking.openURL(url);
 };
 
-const RepositoryItem = ({ item, separator }) => {
+const RepositoryItem = ({ item, separator, displayButton }) => {
   const {
-    id,
     fullName,
     description,
     language,
@@ -82,8 +80,6 @@ const RepositoryItem = ({ item, separator }) => {
     stargazersCount,
     ownerAvatarUrl,
   } = item;
-
-  const { url } = useGetUrl(id);
 
   const turnIntoDecimal = (number) => {
     if (number > 1000) return (number / 1000).toFixed(1) + "k";
@@ -123,9 +119,11 @@ const RepositoryItem = ({ item, separator }) => {
           <Text style={styles.descriptionText}>Rating</Text>
         </View>
       </View>
-      <Pressable onPress={(e) => openGitHubLink(url, e)}>
-        <Text style={styles.button}>Open on GitHub</Text>
-      </Pressable>
+      {displayButton && (
+        <Pressable onPress={(e) => openGitHubLink(item.url, e)}>
+          <Text style={styles.button}>Open on GitHub</Text>
+        </Pressable>
+      )}
     </View>
   );
 };
