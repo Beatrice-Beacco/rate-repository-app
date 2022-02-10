@@ -49,11 +49,10 @@ describe("RepositoryList", () => {
         ],
       };
 
+      // eslint-disable-next-line no-unused-vars
       const { debug, getAllByTestId } = render(
         <RepositoryListContainer repositories={repositories} />
       );
-
-      debug();
 
       const repositoryItems = getAllByTestId("repositoryItem");
       const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
