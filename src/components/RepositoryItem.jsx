@@ -1,8 +1,78 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import * as Linking from "expo-linking";
 import theme from "../theme";
+import useGetUrl from "../hooks/useGetUrl";
+
+const styles = StyleSheet.create({
+  entry: {
+    backgroundColor: theme.colors.white,
+    padding: 15,
+  },
+  nameText: {
+    fontFamily: theme.fonts.main,
+    fontWeight: theme.fontWeights.bold,
+    fontSize: theme.fontSizes.subheading,
+  },
+  descriptionText: {
+    color: theme.colors.textSecondary,
+    fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.body,
+  },
+  languageText: {
+    alignSelf: "flex-start",
+    padding: theme.paddings.verySmallPadding,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.paddings.verySmallPadding,
+    color: theme.colors.white,
+  },
+
+  row: {
+    paddingTop: 7,
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+  },
+
+  sectionRow: {
+    paddingTop: 7,
+    flexDirection: "row",
+  },
+
+  column: {
+    flexDirection: "column",
+  },
+
+  sectionColumn: {
+    flexDirection: "column",
+    flex: 1,
+  },
+
+  image: {
+    width: theme.icon.size,
+    height: theme.icon.size,
+    borderRadius: theme.paddings.verySmallPadding,
+    marginRight: 10,
+  },
+
+  button: {
+    marginTop: theme.paddings.verySmallPadding,
+    padding: theme.paddings.verySmallPadding,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.paddings.verySmallPadding,
+    color: theme.colors.white,
+    fontSize: theme.fontSizes.subheading,
+    alignItems: "stretch",
+    textAlign: "center",
+  },
+});
+
+const openGitHubLink = (url, event) => {
+  event.preventDefault();
+  Linking.openURL(url);
+};
 
 const RepositoryItem = ({ item, separator }) => {
   const {
+    id,
     fullName,
     description,
     language,
@@ -13,56 +83,7 @@ const RepositoryItem = ({ item, separator }) => {
     ownerAvatarUrl,
   } = item;
 
-  const styles = StyleSheet.create({
-    entry: {
-      backgroundColor: theme.colors.white,
-      padding: 15,
-    },
-    nameText: {
-      fontFamily: theme.fonts.main,
-      fontWeight: theme.fontWeights.bold,
-      fontSize: theme.fontSizes.subheading,
-    },
-    descriptionText: {
-      color: theme.colors.textSecondary,
-      fontFamily: theme.fonts.main,
-      fontSize: theme.fontSizes.body,
-    },
-    languageText: {
-      alignSelf: "flex-start",
-      padding: 5,
-      backgroundColor: theme.colors.primary,
-      borderRadius: 5,
-      color: theme.colors.white,
-    },
-
-    row: {
-      paddingTop: 7,
-      justifyContent: "space-evenly",
-      flexDirection: "row",
-    },
-
-    sectionRow: {
-      paddingTop: 7,
-      flexDirection: "row",
-    },
-
-    column: {
-      flexDirection: "column",
-    },
-
-    sectionColumn: {
-      flexDirection: "column",
-      flex: 1,
-    },
-
-    image: {
-      width: theme.icon.size,
-      height: theme.icon.size,
-      borderRadius: 5,
-      marginRight: 10,
-    },
-  });
+  const { url } = useGetUrl(id);
 
   const turnIntoDecimal = (number) => {
     if (number > 1000) return (number / 1000).toFixed(1) + "k";
@@ -102,6 +123,9 @@ const RepositoryItem = ({ item, separator }) => {
           <Text style={styles.descriptionText}>Rating</Text>
         </View>
       </View>
+      <Pressable onPress={(e) => openGitHubLink(url, e)}>
+        <Text style={styles.button}>Open on GitHub</Text>
+      </Pressable>
     </View>
   );
 };

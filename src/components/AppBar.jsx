@@ -59,8 +59,6 @@ const AppBar = () => {
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
 
-  console.log(user);
-
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.row} horizontal>

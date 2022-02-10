@@ -31,5 +31,6 @@ export default {
     extra: {
       APOLLO_URI: process.env.APOLLO_URI,
     },
+    scheme: "https",
   },
 };

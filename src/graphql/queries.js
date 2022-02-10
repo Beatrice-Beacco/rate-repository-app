@@ -30,3 +30,13 @@ export const GET_REPOSITORIES = gql`
     }
   }
 `;
+//repositoryId($id: String)
+export const GET_REPOSITORY = gql`
+  query repo($repo: ID!) {
+    repository(id: $repo) {
+      id
+      fullName
+      url
+    }
+  }
+`;
