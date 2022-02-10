@@ -70,7 +70,7 @@ const RepositoryItem = ({ item, separator }) => {
   };
 
   return (
-    <View style={(separator, styles.entry)}>
+    <View testID="repositoryItem" style={(separator, styles.entry)}>
       <View style={styles.sectionRow}>
         <Image source={{ uri: ownerAvatarUrl }} style={styles.image} />
         <View style={styles.sectionColumn}>
