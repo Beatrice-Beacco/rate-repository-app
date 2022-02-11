@@ -3,7 +3,8 @@ import RepositoryItem from "./RepositoryItem";
 import ReviewItem from "./ReviewItem";
 import useGetRepository from "../hooks/useGetRepository";
 import { useParams } from "react-router-dom";
-import { Text, FlatList } from "react-native";
+import { FlatList } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const RepositoryView = () => {
   const { repoId } = useParams();
@@ -11,7 +12,14 @@ const RepositoryView = () => {
 
   const reviewNodes = repo ? repo.reviews.edges.map((edge) => edge.node) : [];
 
-  if (!repo) return <Text>Loading...</Text>;
+  if (!repo)
+    return (
+      <Spinner
+        visible={!repo}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
+    );
 
   return (
     <FlatList

@@ -7,8 +7,8 @@ import { format, parseISO } from "date-fns";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.white,
-    marginTop: theme.paddings.smallPadding,
-    padding: 10,
+    marginTop: theme.paddings.divider,
+    padding: theme.paddings.divider,
     flexDirection: "row",
   },
   score: {
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.score,
     paddingLeft: 11,
-    paddingTop: 10,
+    paddingTop: theme.paddings.divider,
     height: 50,
     width: 50,
     borderWidth: 3,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   infoColumn: {
     flexDirection: "column",
-    marginLeft: 10,
+    marginLeft: theme.paddings.divider,
     flex: 1,
   },
   nameText: {

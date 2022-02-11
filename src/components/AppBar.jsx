@@ -16,7 +16,6 @@ import useAuthStorage from "../hooks/useAuthStorage";
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight + theme.paddings.smallPadding,
-    paddingLeft: theme.paddings.smallPadding,
     paddingBottom: theme.paddings.smallPadding,
     backgroundColor: theme.colors.textPrimary,
   },
@@ -29,7 +28,7 @@ const styles = StyleSheet.create({
   row: {
     flexGrow: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
   },
 });
 
@@ -42,9 +41,14 @@ const authenticationTab = (user, storage, client) => {
     );
   } else {
     return (
-      <TouchableHighlight onPress={() => userLogout(storage, client)}>
-        <Text style={styles.text}>Logout</Text>
-      </TouchableHighlight>
+      <>
+        <Link to="/review">
+          <Text style={styles.text}>Create a review</Text>
+        </Link>
+        <TouchableHighlight onPress={() => userLogout(storage, client)}>
+          <Text style={styles.text}>Logout</Text>
+        </TouchableHighlight>
+      </>
     );
   }
 };

@@ -30,6 +30,7 @@ const theme = {
   paddings: {
     verySmallPadding: 5,
     smallPadding: 20,
+    divider: 10,
   },
 
   icon: {
