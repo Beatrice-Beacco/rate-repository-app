@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { Text, StyleSheet } from "react-native";
+import ReviewForm from "./ReviewForm";
 
 const styles = StyleSheet.create({
   errorText: {
@@ -14,8 +15,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-import ReviewForm from "./ReviewForm";
 
 const initialValues = {
   ownerName: "",
@@ -35,7 +34,7 @@ const validationSchema = yup.object({
 });
 
 const NewReview = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const [createReview] = useAddReview();
 
   const onSubmit = async (
@@ -62,7 +61,6 @@ const NewReview = () => {
       validationSchema={validationSchema}
     >
       {({ handleSubmit, status }) => {
-        console.log("Errors", status);
         return (
           <>
             <ReviewForm onSubmit={handleSubmit} />

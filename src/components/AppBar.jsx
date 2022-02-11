@@ -35,9 +35,14 @@ const styles = StyleSheet.create({
 const authenticationTab = (user, storage, client) => {
   if (!user) {
     return (
-      <Link to="signin">
-        <Text style={styles.text}>Sign in</Text>
-      </Link>
+      <>
+        <Link to="/signin">
+          <Text style={styles.text}>Sign in</Text>
+        </Link>
+        <Link to="/signup">
+          <Text style={styles.text}>Sign up</Text>
+        </Link>
+      </>
     );
   } else {
     return (

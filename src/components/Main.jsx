@@ -8,6 +8,7 @@ import theme from "../theme";
 import RepositoryList from "./RepositoryList";
 import RepositoryView from "./RepositoryView";
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import NewReview from "./NewReview";
 
 export const Main = () => {
@@ -30,6 +31,7 @@ export const Main = () => {
           />
           <Route path="/" element={<RepositoryList />} exact />
           <Route path="/signin" element={<SignIn />} exact />
+          <Route path="/signup" element={<SignUp />} exact />
           <Route path="/review" element={<NewReview />} exact />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
