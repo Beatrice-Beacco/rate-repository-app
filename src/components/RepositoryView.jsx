@@ -12,7 +12,7 @@ const RepositoryView = () => {
 
   const reviewNodes = repo ? repo.reviews.edges.map((edge) => edge.node) : [];
 
-  if (!repo)
+  if (!repo) {
     return (
       <Spinner
         visible={!repo}
@@ -20,6 +20,7 @@ const RepositoryView = () => {
         textStyle={{ color: "#FFF" }}
       />
     );
+  }
 
   return (
     <FlatList

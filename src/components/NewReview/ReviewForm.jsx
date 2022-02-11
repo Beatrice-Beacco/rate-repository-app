@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
-import theme from "../theme";
-import FormikTextInput from "./FormikTextInput";
+import theme from "../../theme";
+import FormikTextInput from "../FormikTextInput";
 
 const styles = StyleSheet.create({
   layout: {
@@ -18,20 +18,22 @@ const styles = StyleSheet.create({
   },
 });
 
-const SignInForm = ({ onSubmit }) => {
+const ReviewForm = ({ onSubmit }) => {
   return (
     <View style={styles.layout}>
-      <FormikTextInput name="username" placeholder="Username" />
       <FormikTextInput
-        name="password"
-        placeholder="Password"
-        secureTextEntry={true}
+        name="ownerName"
+        placeholder="Repository owner username"
       />
+      <FormikTextInput name="repositoryName" placeholder="Repository name" />
+      <FormikTextInput name="rating" placeholder="Rating (0 - 100)" />
+      <FormikTextInput name="text" placeholder="Review comment" />
+
       <Pressable onPress={onSubmit}>
-        <Text style={styles.button}>Sign in</Text>
+        <Text style={styles.button}>Create a review</Text>
       </Pressable>
     </View>
   );
 };
 
-export default SignInForm;
+export default ReviewForm;
