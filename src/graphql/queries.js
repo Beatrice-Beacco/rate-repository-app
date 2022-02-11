@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { REPOSITORY_FIELDS } from "./fragments";
+import { REPOSITORY_FIELDS, REVIEW_FIELDS } from "./fragments";
 
 export const LOGGED_USER = gql`
   query {
@@ -24,11 +24,13 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_REPOSITORY = gql`
+  ${REPOSITORY_FIELDS}
+  ${REVIEW_FIELDS}
   query repo($repo: ID!) {
     repository(id: $repo) {
       url
       ...DisplayFields
+      ...ReviewFields
     }
   }
-  ${REPOSITORY_FIELDS}
 `;

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   nameText: {
-    fontFamily: theme.fonts.main,
+    fontFamily: theme.fonts.heading,
     fontWeight: theme.fontWeights.bold,
     fontSize: theme.fontSizes.subheading,
   },
@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     borderRadius: theme.paddings.verySmallPadding,
     color: theme.colors.white,
+    marginTop: theme.paddings.verySmallPadding,
   },
 
   row: {
