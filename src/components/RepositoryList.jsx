@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, View, StyleSheet, Pressable } from "react-native";
 import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-native-loading-spinner-overlay";
+
+import OrderSelector from "./OrderSelector";
 
 const styles = StyleSheet.create({
   separator: {
@@ -13,7 +15,11 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({
+  repositories,
+  setOrderBy,
+  setOrderDirection,
+}) => {
   const navigate = useNavigate();
 
   // Get the nodes from the edges array
@@ -30,6 +36,9 @@ export const RepositoryListContainer = ({ repositories }) => {
     <FlatList
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponent={
+        <OrderSelector setOrder={setOrderBy} setDirection={setOrderDirection} />
+      }
       keyExtractor={(item) => item.id}
       // eslint-disable-next-line no-unused-vars
       renderItem={({ item, index, separators }) => (
@@ -45,8 +54,11 @@ export const RepositoryListContainer = ({ repositories }) => {
   );
 };
 
+//TODO: passare set order e set direction
 const RepositoryList = () => {
-  const { repositories } = useRepositories();
+  const [orderBy, setOrderBy] = useState("CREATED_AT");
+  const [orderDirection, setOrderDirection] = useState("DESC");
+  const { repositories } = useRepositories(orderBy, orderDirection);
 
   if (!repositories)
     return (
@@ -57,7 +69,13 @@ const RepositoryList = () => {
       />
     );
 
-  return <RepositoryListContainer repositories={repositories} />;
+  return (
+    <RepositoryListContainer
+      repositories={repositories}
+      setOrderBy={setOrderBy}
+      setOrderDirection={setOrderDirection}
+    />
+  );
 };
 
 export default RepositoryList;

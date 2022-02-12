@@ -12,8 +12,11 @@ export const LOGGED_USER = gql`
 
 export const GET_REPOSITORIES = gql`
   ${REPOSITORY_FIELDS}
-  query {
-    repositories {
+  query Repositories(
+    $orderBy: AllRepositoriesOrderBy
+    $orderDirection: OrderDirection
+  ) {
+    repositories(orderBy: $orderBy, orderDirection: $orderDirection) {
       edges {
         node {
           ...DisplayFields
