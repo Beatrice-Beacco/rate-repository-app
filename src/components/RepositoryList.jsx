@@ -22,6 +22,7 @@ export const RepositoryListContainer = ({
   setOrderDirection,
   searchQuery,
   setSearchQuery,
+  onEndReach,
 }) => {
   const navigate = useNavigate();
 
@@ -62,6 +63,8 @@ export const RepositoryListContainer = ({
           />
         </Pressable>
       )}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -71,11 +74,16 @@ const RepositoryList = () => {
   const [orderDirection, setOrderDirection] = useState("DESC");
   const [searchQuery, setSearchQuery] = useState();
   const [debouncedSearchQuery] = useDebounce(searchQuery, 200);
-  const { repositories } = useRepositories(
+  const { repositories, fetchMore } = useRepositories({
     orderBy,
     orderDirection,
-    debouncedSearchQuery
-  );
+    searchKeyword: debouncedSearchQuery,
+    first: 8,
+  });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
 
   if (!repositories)
     return (
@@ -93,6 +101,7 @@ const RepositoryList = () => {
       setOrderDirection={setOrderDirection}
       searchQuery={searchQuery}
       setSearchQuery={setSearchQuery}
+      onEndReach={onEndReach}
     />
   );
 };
