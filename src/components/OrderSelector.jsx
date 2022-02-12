@@ -30,25 +30,30 @@ const OrderSelector = ({ setOrder, setDirection }) => {
   );
 
   return (
-    <Picker
-      selectedValue={selectedValue}
-      onValueChange={(itemValue) => {
-        setSelectedValue(itemValue);
-        setOrder(orderingValues[itemValue].order);
-        setDirection(orderingValues[itemValue].direction);
-      }}
-    >
-      <Picker.Item
-        label={orderingValues.createdDesc.label}
-        value={"createdDesc"}
-      />
-      <Picker.Item
-        label={orderingValues.createdAsc.label}
-        value={"createdAsc"}
-      />
-      <Picker.Item label={orderingValues.ratedDesc.label} value={"ratedDesc"} />
-      <Picker.Item label={orderingValues.ratedAsc.label} value={"ratedAsc"} />
-    </Picker>
+    <>
+      <Picker
+        selectedValue={selectedValue}
+        onValueChange={(itemValue) => {
+          setSelectedValue(itemValue);
+          setOrder(orderingValues[itemValue].order);
+          setDirection(orderingValues[itemValue].direction);
+        }}
+      >
+        <Picker.Item
+          label={orderingValues.createdDesc.label}
+          value={"createdDesc"}
+        />
+        <Picker.Item
+          label={orderingValues.createdAsc.label}
+          value={"createdAsc"}
+        />
+        <Picker.Item
+          label={orderingValues.ratedDesc.label}
+          value={"ratedDesc"}
+        />
+        <Picker.Item label={orderingValues.ratedAsc.label} value={"ratedAsc"} />
+      </Picker>
+    </>
   );
 };
 

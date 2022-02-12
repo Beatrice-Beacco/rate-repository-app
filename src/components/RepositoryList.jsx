@@ -4,8 +4,9 @@ import RepositoryItem from "./RepositoryItem";
 import useRepositories from "../hooks/useRepositories";
 import { useNavigate } from "react-router-dom";
 import Spinner from "react-native-loading-spinner-overlay";
-
+import { useDebounce } from "use-debounce";
 import OrderSelector from "./OrderSelector";
+import SearchBar from "./SearchBar";
 
 const styles = StyleSheet.create({
   separator: {
@@ -19,6 +20,8 @@ export const RepositoryListContainer = ({
   repositories,
   setOrderBy,
   setOrderDirection,
+  searchQuery,
+  setSearchQuery,
 }) => {
   const navigate = useNavigate();
 
@@ -37,7 +40,16 @@ export const RepositoryListContainer = ({
       data={repositoryNodes}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={
-        <OrderSelector setOrder={setOrderBy} setDirection={setOrderDirection} />
+        <>
+          <SearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+          <OrderSelector
+            setOrder={setOrderBy}
+            setDirection={setOrderDirection}
+          />
+        </>
       }
       keyExtractor={(item) => item.id}
       // eslint-disable-next-line no-unused-vars
@@ -54,11 +66,16 @@ export const RepositoryListContainer = ({
   );
 };
 
-//TODO: passare set order e set direction
 const RepositoryList = () => {
   const [orderBy, setOrderBy] = useState("CREATED_AT");
   const [orderDirection, setOrderDirection] = useState("DESC");
-  const { repositories } = useRepositories(orderBy, orderDirection);
+  const [searchQuery, setSearchQuery] = useState();
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 200);
+  const { repositories } = useRepositories(
+    orderBy,
+    orderDirection,
+    debouncedSearchQuery
+  );
 
   if (!repositories)
     return (
@@ -74,6 +91,8 @@ const RepositoryList = () => {
       repositories={repositories}
       setOrderBy={setOrderBy}
       setOrderDirection={setOrderDirection}
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
     />
   );
 };
