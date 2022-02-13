@@ -16,13 +16,15 @@ const useGeRepository = (variables) => {
   );
 
   const fetchRepo = async () => {
-    setLoading(loading);
+    setLoading(true);
 
     if (data) {
       setRepo(data.repository);
     }
 
     if (error) console.log("Error: ", error);
+
+    setLoading(loading);
   };
 
   useEffect(() => {

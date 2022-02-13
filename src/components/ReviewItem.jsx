@@ -7,7 +7,7 @@ import { format, parseISO } from "date-fns";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.white,
-    marginTop: theme.paddings.divider,
+    //marginTop: theme.paddings.divider,
     padding: theme.paddings.divider,
     flexDirection: "row",
   },

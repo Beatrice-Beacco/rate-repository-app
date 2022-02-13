@@ -4,20 +4,19 @@ import { REPOSITORY_FIELDS, REVIEW_FIELDS, PAGE_INFO } from "./fragments";
 export const LOGGED_USER = gql`
   ${REVIEW_FIELDS}
   ${PAGE_INFO}
-  query getCurrentUser($includeReviews: Boolean) {
+  query getCurrentUser($includeReviews: Boolean = false) {
     me {
       id
       username
-    }
-  }
-`;
-
-/* reviews @include(if: $includeReviews) {
+      reviews @include(if: $includeReviews) {
         ...ReviewFields
         pageInfo {
           ...PageInfo
         }
-      } */
+      }
+    }
+  }
+`;
 
 export const GET_REPOSITORIES = gql`
   ${REPOSITORY_FIELDS}

@@ -16,7 +16,7 @@ const useRepositories = (variables) => {
   );
 
   const fetchRepositories = async () => {
-    setLoading(load);
+    setLoading(true);
 
     if (data) {
       setRepositories(data.repositories);
@@ -27,6 +27,8 @@ const useRepositories = (variables) => {
         "An error in the fetching of repositories occurred",
         error
       );
+
+    setLoading(load);
   };
 
   useEffect(() => {

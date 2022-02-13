@@ -8,6 +8,7 @@ const useGetLoggedUser = (includeReviews = false) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const { data, error, load } = useQuery(LOGGED_USER, {
+    fetchPolicy: "cache-and-network",
     variables: {
       includeReviews,
     },
@@ -15,8 +16,6 @@ const useGetLoggedUser = (includeReviews = false) => {
 
   const fetchUser = async () => {
     setLoading(load);
-
-    console.log(data);
 
     if (data) {
       setUser(data.me);

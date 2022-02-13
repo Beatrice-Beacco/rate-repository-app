@@ -1,8 +1,12 @@
 import React from "react";
-import { Text } from "react-native";
+import useGetLoggedUser from "../../hooks/useGetLoggedUser";
+import ReviewList from "../ReviewList";
 
 const UserReviews = () => {
-  return <Text>lmao</Text>;
+  const { user } = useGetLoggedUser(true);
+
+  const reviewNodes = user ? user.reviews.edges.map((edge) => edge.node) : [];
+  return <ReviewList list={reviewNodes} />;
 };
 
 export default UserReviews;
