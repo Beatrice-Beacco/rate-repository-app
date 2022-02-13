@@ -9,6 +9,7 @@ import { useApolloClient } from "@apollo/client";
 import { Link } from "react-router-native";
 import theme from "../theme";
 import Constants from "expo-constants";
+import { useNavigate } from "react-router-dom";
 
 import useGetLoggedUser from "../hooks/useGetLoggedUser";
 import useAuthStorage from "../hooks/useAuthStorage";
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const authenticationTab = (user, storage, client) => {
+const authenticationTab = (user, storage, client, navigate) => {
   if (!user) {
     return (
       <>
@@ -50,7 +51,9 @@ const authenticationTab = (user, storage, client) => {
         <Link to="/review">
           <Text style={styles.text}>Create a review</Text>
         </Link>
-        <TouchableHighlight onPress={() => userLogout(storage, client)}>
+        <TouchableHighlight
+          onPress={() => userLogout(storage, client, navigate)}
+        >
           <Text style={styles.text}>Logout</Text>
         </TouchableHighlight>
       </>
@@ -58,15 +61,17 @@ const authenticationTab = (user, storage, client) => {
   }
 };
 
-const userLogout = (authStorage, apolloClient) => {
+const userLogout = (authStorage, apolloClient, navigateFunction) => {
   authStorage.removeAccessToken();
   apolloClient.resetStore();
+  navigateFunction(`/`, { replace: true });
 };
 
 const AppBar = () => {
   const { user } = useGetLoggedUser();
   const authStorage = useAuthStorage();
   const apolloClient = useApolloClient();
+  const navigate = useNavigate();
 
   return (
     <View style={styles.container}>
@@ -74,7 +79,7 @@ const AppBar = () => {
         <Link to="/">
           <Text style={styles.text}>Repositories</Text>
         </Link>
-        {authenticationTab(user, authStorage, apolloClient)}
+        {authenticationTab(user, authStorage, apolloClient, navigate)}
       </ScrollView>
     </View>
   );
