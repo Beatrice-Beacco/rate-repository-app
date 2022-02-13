@@ -10,11 +10,13 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const ReviewList = ({ list, ...props }) => {
+const ReviewList = ({ list, displayActions, ...props }) => {
   return (
     <FlatList
       data={list}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => (
+        <ReviewItem review={item} displayActions={displayActions} />
+      )}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={ItemSeparator}
       onEndReachedThreshold={0.5}

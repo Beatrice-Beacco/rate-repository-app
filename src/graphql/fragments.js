@@ -28,6 +28,11 @@ export const REVIEW_FIELDS = gql`
           id
           username
         }
+        repository {
+          id
+          ownerName
+          name
+        }
       }
       cursor
     }

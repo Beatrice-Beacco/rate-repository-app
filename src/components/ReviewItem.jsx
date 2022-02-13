@@ -1,6 +1,8 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import theme from "../theme";
+import ViewRepositoryButton from "./ViewRepositoryButton";
+import DeleteRepositoryButton from "./DeleteRepositoryButton";
 
 import { format, parseISO } from "date-fns";
 
@@ -46,19 +48,43 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.main,
     fontSize: theme.fontSizes.body,
   },
+  buttons: {
+    flexDirection: "row",
+    backgroundColor: theme.colors.white,
+    paddingBottom: theme.paddings.divider,
+    justifyContent: "space-around",
+  },
 });
 
-const ReviewItem = ({ review }) => {
+const renderReviewActions = (repositoryId, reviewId) => {
+  return (
+    <>
+      <ViewRepositoryButton repositoryId={repositoryId} />
+      <DeleteRepositoryButton reviewId={reviewId} />
+    </>
+  );
+};
+
+const ReviewItem = ({ review, displayActions }) => {
   const formattedDate = format(parseISO(review.createdAt), "PPP");
   return (
-    <View style={styles.container}>
-      <Text style={[styles.score, styles.scoreColumn]}>{review.rating}</Text>
-      <View style={styles.infoColumn}>
-        <Text style={styles.nameText}>{review.user.username}</Text>
-        <Text style={styles.date}>{formattedDate}</Text>
-        <Text style={styles.descriptionText}>{review.text}</Text>
+    <>
+      <View style={styles.container}>
+        <Text style={[styles.score, styles.scoreColumn]}>{review.rating}</Text>
+        <View style={styles.infoColumn}>
+          <Text style={styles.nameText}>
+            {!displayActions
+              ? review.user.username
+              : review.repository.ownerName + "/" + review.repository.name}
+          </Text>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.descriptionText}>{review.text}</Text>
+        </View>
       </View>
-    </View>
+      <View style={styles.buttons}>
+        {displayActions && renderReviewActions(review.repository.id, review.id)}
+      </View>
+    </>
   );
 };
 

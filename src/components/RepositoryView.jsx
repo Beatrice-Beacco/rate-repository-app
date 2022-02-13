@@ -35,6 +35,7 @@ const RepositoryView = () => {
         <RepositoryItem item={repo} displayButton={true} />
       )}
       onEndReached={() => onEndReach()}
+      displayActions={false}
     />
   );
 };

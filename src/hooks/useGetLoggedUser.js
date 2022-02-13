@@ -17,6 +17,8 @@ const useGetLoggedUser = (includeReviews = false) => {
   const fetchUser = async () => {
     setLoading(load);
 
+    console.log(data);
+
     if (data) {
       setUser(data.me);
     }
