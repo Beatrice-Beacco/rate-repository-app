@@ -5,6 +5,7 @@ import useGetRepository from "../hooks/useGetRepository";
 import { useParams } from "react-router-dom";
 import { FlatList } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
+import ReviewList from "./ReviewList";
 
 const RepositoryView = () => {
   const { repoId } = useParams();
@@ -26,21 +27,24 @@ const RepositoryView = () => {
   }
 
   const onEndReach = () => {
+    console.log("on end reach");
     fetchMore();
   };
 
   return (
-    <FlatList
-      data={reviewNodes}
-      renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={({ id }) => id}
+    <ReviewList
+      list={reviewNodes}
       ListHeaderComponent={() => (
         <RepositoryItem item={repo} displayButton={true} />
       )}
-      onEndReached={onEndReach}
-      onEndReachedThreshold={0.5}
+      onEndReached={() => onEndReach()}
     />
   );
 };
+
+/*       ListHeaderComponent={() => (
+        <RepositoryItem item={repo} displayButton={true} />
+      )}
+      onEndReached={onEndReach} */
 
 export default RepositoryView;

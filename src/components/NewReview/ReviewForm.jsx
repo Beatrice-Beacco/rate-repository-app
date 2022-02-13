@@ -31,7 +31,7 @@ const ReviewForm = ({ onSubmit }) => {
         name="text"
         placeholder="Review comment"
         multiline={true}
-        numberOfLines={5}
+        numberOfLines={3}
       />
 
       <Pressable onPress={onSubmit}>

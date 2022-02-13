@@ -2,13 +2,22 @@ import { gql } from "@apollo/client";
 import { REPOSITORY_FIELDS, REVIEW_FIELDS, PAGE_INFO } from "./fragments";
 
 export const LOGGED_USER = gql`
-  query {
+  ${REVIEW_FIELDS}
+  ${PAGE_INFO}
+  query getCurrentUser($includeReviews: Boolean) {
     me {
       id
       username
     }
   }
 `;
+
+/* reviews @include(if: $includeReviews) {
+        ...ReviewFields
+        pageInfo {
+          ...PageInfo
+        }
+      } */
 
 export const GET_REPOSITORIES = gql`
   ${REPOSITORY_FIELDS}

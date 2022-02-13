@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 
 const authenticationTab = (user, storage, client, navigate) => {
   if (!user) {
+    //if user is not signed in
     return (
       <>
         <Link to="/signin">
@@ -46,10 +47,14 @@ const authenticationTab = (user, storage, client, navigate) => {
       </>
     );
   } else {
+    //if user is signed in
     return (
       <>
         <Link to="/review">
           <Text style={styles.text}>Create a review</Text>
+        </Link>
+        <Link to="/user_reviews">
+          <Text style={styles.text}>My reviews</Text>
         </Link>
         <TouchableHighlight
           onPress={() => userLogout(storage, client, navigate)}

@@ -10,6 +10,7 @@ import RepositoryView from "./RepositoryView";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import NewReview from "./NewReview";
+import UserReviews from "./UserReviews";
 
 export const Main = () => {
   const styles = StyleSheet.create({
@@ -30,6 +31,7 @@ export const Main = () => {
             exact
           />
           <Route path="/" element={<RepositoryList />} exact />
+          <Route path="/user_reviews" element={<UserReviews />} exact />
           <Route path="/signin" element={<SignIn />} exact />
           <Route path="/signup" element={<SignUp />} exact />
           <Route path="/review" element={<NewReview />} exact />
