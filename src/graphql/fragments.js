@@ -17,20 +17,28 @@ export const REPOSITORY_FIELDS = gql`
 `;
 
 export const REVIEW_FIELDS = gql`
-  fragment ReviewFields on Repository {
-    reviews {
-      edges {
-        node {
+  fragment ReviewFields on ReviewConnection {
+    edges {
+      node {
+        id
+        text
+        rating
+        createdAt
+        user {
           id
-          text
-          rating
-          createdAt
-          user {
-            id
-            username
-          }
+          username
         }
       }
+      cursor
     }
+  }
+`;
+
+export const PAGE_INFO = gql`
+  fragment PageInfo on PageInfo {
+    hasPreviousPage
+    hasNextPage
+    startCursor
+    endCursor
   }
 `;

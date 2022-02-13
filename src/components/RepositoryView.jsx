@@ -8,7 +8,10 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const RepositoryView = () => {
   const { repoId } = useParams();
-  const { repo } = useGetRepository(repoId);
+  const { repo, fetchMore } = useGetRepository({
+    repo: repoId,
+    first: 6,
+  });
 
   const reviewNodes = repo ? repo.reviews.edges.map((edge) => edge.node) : [];
 
@@ -22,6 +25,10 @@ const RepositoryView = () => {
     );
   }
 
+  const onEndReach = () => {
+    fetchMore();
+  };
+
   return (
     <FlatList
       data={reviewNodes}
@@ -30,6 +37,8 @@ const RepositoryView = () => {
       ListHeaderComponent={() => (
         <RepositoryItem item={repo} displayButton={true} />
       )}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
